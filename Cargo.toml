@@ -15,7 +15,7 @@ path = "src/main.rs"
 
 [dependencies]
 piston = "0.52.1"
-piston_window = "0.116.0"
+piston_window = "0.120.0"
 image = "0.23.11"
 resize = "0.5.5"
 walkdir = "2.3.1"

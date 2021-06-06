@@ -155,7 +155,7 @@ impl Group {
 
                 // TODO: Would be great to move off thread.
                 let image =
-                    Texture::from_image(texture_context, &image.to_rgba(), &texture_settings)
+                    Texture::from_image(texture_context, &image.to_rgba8(), &texture_settings)
                         .expect("texture");
 
                 self.tiles.insert(*tile_ref, image);
