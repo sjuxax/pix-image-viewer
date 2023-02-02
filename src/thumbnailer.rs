@@ -28,6 +28,7 @@ use futures::select;
 use futures::task::SpawnExt;
 use std::collections::BTreeMap;
 use std::sync::Arc;
+use std::io::Cursor;
 
 type Handle<T> = Fuse<RemoteHandle<T>>;
 
@@ -181,13 +182,13 @@ impl Thumbnailer {
                         ::image::ImageOutputFormat::Jpeg(100)
                     };
 
-                    let mut buf = Vec::with_capacity((2 * x_range * y_range) as usize);
+                    let mut buf = Cursor::new(Vec::with_capacity((2 * x_range * y_range) as usize));
                     sub_image.write_to(&mut buf, format).expect("write_to");
 
                     let tile_id = crate::TileRef::new(crate::Pow2::from(bucket), uid, chunk_id);
                     chunk_id += 1;
 
-                    tiles.insert(tile_id, buf);
+                    tiles.insert(tile_id, buf.into_inner());
 
                     thumb.tile_refs.push(tile_id);
                 }
